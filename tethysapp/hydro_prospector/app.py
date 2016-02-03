@@ -12,8 +12,9 @@ class HydroProspector(TethysAppBase):
     icon = 'hydro_prospector/images/icon.gif'
     package = 'hydro_prospector'
     root_url = 'hydro-prospector'
-    color = '#e67e22'
-    description = 'Place a brief description of your app here.'
+    color = '#003266'
+    description = 'Provides analyses of hydroelectric and related water resources projects to determine a\
+     preliminary technical feasibility for a project.'
     enable_feedback = True
     feedback_emails = ['ezrajrice@gmail.com']
 
@@ -26,6 +27,14 @@ class HydroProspector(TethysAppBase):
         url_maps = (UrlMap(name='home',
                            url='hydro-prospector',
                            controller='hydro_prospector.controllers.home'),
+
+                    UrlMap(name='view_project',
+                           url='hydro-prospector/1',
+                           controller='hydro_prospector.controllers.view_project'),
+
+                    UrlMap(name='view_map',
+                           url='hydro-prospector/1/view-map',
+                           controller='hydro_prospector.controllers.view_map'),
         )
 
         return url_maps
