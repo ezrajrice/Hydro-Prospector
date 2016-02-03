@@ -1,0 +1,2 @@
+tethysapp
+tethysapp.hydro_prospector
