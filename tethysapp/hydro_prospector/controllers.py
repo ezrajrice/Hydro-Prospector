@@ -15,7 +15,8 @@ def home(request):
 
     home_project_table = TableView(column_names=('ID', 'Project Name', 'Description', ''),
                                    rows=[(1, 'Payette, ID', 'Reservoir located just east of Payette, ID',
-                                          view_project_button)],
+                                          view_project_button),
+                                         (2, 'Caldwell, ID', 'Another description', view_project_button)],
                                    hover=True,
                                    striped=False,
                                    bordered=False,
@@ -40,24 +41,16 @@ def view_project(request):
     """
     Controller for creating a new project.
     """
-    home_project_table = TableView(column_names=('project_id', 'project_name', 'description', ''),
-                                   rows=[()],
-                                   hover=True,
-                                   striped=True,
-                                   bordered=False,
-                                   condensed=False,
-                                   editable_columns=False,
-                                   row_ids=[],
-                                   attributes={'onclick': "onclick: view_project_summary()"},
-                                   )
-
-
+    project_description = TextInput(name='project_description',
+                                    display_text='Some description of the project goes here',
+                                    initial='',
+                                    disabled=True,)
     project_id = 1
     project_name = 'Payette, ID'
 
-    context = {'home_project_table': home_project_table,
-               'project_id': project_id,
+    context = {'project_id': project_id,
                'project_name': project_name,
+               'project_description': project_description,
                }
 
     return render(request, 'hydro_prospector/view_project.html', context)
