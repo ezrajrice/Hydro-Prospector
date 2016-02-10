@@ -8,8 +8,14 @@ def home(request):
     """
     Controller for the app home page.
     """
-    home_project_table = TableView(column_names=('ID', 'Project Name', 'Description',),
-                                   rows=[(1, 'Payette, ID', 'Reservoir located just east of Payette, ID')],
+    view_project_button = Button(display_text='View',
+                                 name='view_project_button',
+                                 attributes={"onclick": "alert(this.name);"},
+                                 submit=True)
+
+    home_project_table = TableView(column_names=('ID', 'Project Name', 'Description', ''),
+                                   rows=[(1, 'Payette, ID', 'Reservoir located just east of Payette, ID',
+                                          view_project_button)],
                                    hover=True,
                                    striped=False,
                                    bordered=False,
@@ -23,6 +29,7 @@ def home(request):
 
     context = {'home_project_table': home_project_table,
                'new_project_url': new_project_url,
+               'view_project_button': view_project_button,
                }
 
     return render(request, 'hydro_prospector/home.html', context)
@@ -33,7 +40,7 @@ def view_project(request):
     """
     Controller for creating a new project.
     """
-    home_project_table = TableView(column_names=('project_id', 'project_name', 'description'),
+    home_project_table = TableView(column_names=('project_id', 'project_name', 'description', ''),
                                    rows=[()],
                                    hover=True,
                                    striped=True,
@@ -43,6 +50,7 @@ def view_project(request):
                                    row_ids=[],
                                    attributes={'onclick': "onclick: view_project_summary()"},
                                    )
+
 
     project_id = 1
     project_name = 'Payette, ID'

@@ -3,7 +3,11 @@
 
 {% block app_content %}
     <h1>Projects Table</h1>
-    <div>{% gizmo table_view home_project_table %}</div>
+
+    <table>
+        {% gizmo table_view home_project_table %}
+    </table>
+
 {% endblock %}
 
 {% block app_navigation_items %}
