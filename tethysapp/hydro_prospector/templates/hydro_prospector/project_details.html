@@ -1,0 +1,266 @@
+{% extends "hydro_prospector/base.html" %}
+
+{% block app_navigation_items %}
+  <h5>Review Project Details</h5>
+  <p>Use the Edit option to change any project information that might need adjusted.</p>
+  <br>
+{% endblock %}
+
+{% load static tethys_gizmos %}
+
+{% block app_content %}
+{% gizmo message_box delete_box%}
+  {% csrf_token %}
+  <h1>Project Details</h1>
+
+  <!-- Nav Tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" {% if not active_tab or active_tab == 'summary' %}class="active"{% endif %}>
+      <a href="#project-summary" aria-controls="project-summary" role="tab" data-toggle="tab">Summary</a>
+    </li>
+    <li role="presentation" {% if active_tab == 'map' %}class="active"{% endif %}>
+      <a href="#project-map" aria-controls="project-map" role="tab" data-toggle="tab">Map</a>
+    </li>
+    <li role="presentation" {% if active_tab == 'curves' %}class="active"{% endif %}>
+      <a href="#project-curves" aria-controls="project-curves" role="tab" data-toggle="tab" class="curve-pattern-tab">Curves</a>
+    </li>
+    <li role="presentation" {% if active_tab == 'patterns' %}class="active"{% endif %}>
+      <a href="#project-patterns" aria-controls="project-patterns" role="tab" data-toggle="tab" class="curve-pattern-tab">Patterns</a>
+    </li>
+    <li role="presentation" {% if active_tab == 'export' %}class="active"{% endif %}>
+      <a href="#project-export" aria-controls="project-export" role="tab" data-toggle="tab">Export</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade{% if not active_tab or active_tab == 'summary' %} in active {% endif %}" id="project-summary">
+      <div class="row"  style="width:100%">
+        <!-- 1st Column -->
+        <div class="col-md-6">
+          <h6 class="project-details table-header">General</h6>
+          {% if is_admin %}
+            {% if project_network_file_status == 'Available' %}
+              {% if project_report_file_status != 'Pending' %}
+                <a style="margin-bottom:7px" href="{% url 'epanet:edit_project' user_project_id=user_project_id %}" data-toggle="modal" role="button" class="btn btn-xs btn-warning project-details table-edit-btn"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+          <table class="table table-hover">
+            {% if user.is_staff %}
+              <tr>
+                <td class="name">Epanet ID</td>
+                <td>{{ project_epanet_id }}</td>
+              </tr>
+              <tr>
+                <td class="name">Database ID</td>
+                <td>{{ model_db_name }}</td>
+              </tr>
+            {% endif %}
+            <tr>
+              <td class="name">Project Name</td>
+              <td>{{ project_name }}</td>
+            </tr>
+            <tr>
+              <td class="name">Description</td>
+              <td>{{ project_description }}</td>
+            </tr>
+            <tr>
+              <td class="name">Group</td>
+              <td>{{ project_owner }}</td>
+            </tr>
+            <tr>
+              <td class="name">Date Created</td>
+              <td>{{ project_date_created }}</td>
+            </tr>
+          </table>
+          <h6 class="project-details table-header">Model Parameters</h6>
+          <table class="table table-hover">
+            <tr>
+              <td class="name">Flow Units</td>
+              <td>{{flow_units}}</td>
+            </tr>
+            <tr>
+              <td class="name">Headloss Formula</td>
+              <td>{{headloss_formula}}</td>
+            </tr>
+            <tr>
+              <td class="name">Quality Parameter</td>
+              <td>{{quality_method}}</td>
+            </tr>
+            {% if project_report_file_status == "Available" %}
+              <tr>
+                <td class="name">Report Timesteps</td>
+                <td>{{num_timesteps}}</td>
+              </tr>
+              <tr>
+                <td class="name">Report Timestep</td>
+                <td>{{report_timestep}}</td>
+              </tr>
+              <tr>
+                <td class="name">Report Start Time</td>
+                <td>{{report_start_time}}</td>
+              </tr>
+            {% endif %}
+          </table>
+        </div>
+        <!-- 2nd Column -->
+        <div class="col-md-6">
+          <h6 class="project-details table-header">Nodes</h6>
+          <table class="table table-hover">
+            <tr>
+              <td class="name">Number of Junctions</td>
+              <td>{{junctions}}</td>
+            </tr>
+            <tr>
+              <td class="name">Number of Reservoirs</td>
+              <td>{{reservoirs}}</td>
+            </tr>
+            <tr>
+              <td class="name">Number of Tanks</td>
+              <td>{{tanks}}</td>
+            </tr>
+            <tr>
+              <td class="name">Total Nodes</td>
+              <td>{{nodes}}</td>
+            </tr>
+          </table>
+          <h6 class="project-details table-header">Links</h6>
+          <table class="table table-hover">
+            <tr>
+              <td class="name">Number of Pipes</td>
+              <td>{{pipes}}</td>
+            </tr>
+            <tr>
+              <td class="name">Number of Pumps</td>
+              <td>{{pumps}}</td>
+            </tr>
+            <tr>
+              <td class="name">Number of Valves</td>
+              <td>{{valves}}</td>
+            </tr>
+            <tr>
+              <td class="name">Total Links</td>
+              <td>{{links}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade{% if active_tab == 'map' %} in active {% endif %}" id="project-map">
+      <div class="row">
+        <div class="col-md-6">
+          <div id="div_file_report">
+            <h6 class="project-details table-header">Spatial Reference System</h6>
+            {% if is_admin %}
+              {% if project_network_file_status == 'Available' %}
+                {% if project_report_file_status != 'Pending' %}
+                  <a style="margin-bottom:7px" href="{% url 'epanet:edit_project' user_project_id=user_project_id %}" data-toggle="modal" role="button" class="btn btn-xs btn-warning project-details table-edit-btn"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            {% if project_srid %}
+              <p>{{ project_srid_description }} / EPSG:{{ project_srid }}</p>
+            {% else %}
+              <p>No spatial reference system is defined.</p>
+            {% endif %}
+            <h6 class="project-details table-header">Network Map</h6>
+            <p><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> The network map displays all of the pipes, pumps, junctions, and other elements that make up the distribution network.</p>
+            {% if project_network_file_status == "Pending" or project_network_file_status == "Map Reset" %}
+              <p>Processing Network Map: <img src="{% static 'epanet/images/loading.gif' %}" style="margin-left:20px; width:30px;height:30px"></p>
+            {% else %}
+              <p><a href="{% url 'epanet:network_map' user_project_id=user_project_id %}" role="button" class="btn btn-fat btn-default" data-toggle="modal"><span class="glyphicon glyphicon-globe"></span> Go To Network Map</a></p>
+            {% endif %}
+
+            <h6 class="project-details table-header">Report Map</h6>
+            <p><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> The report map displays the results of the model run overlaid on the distribution network elements.</p>
+            {% if project_report_file_status == "Available" %}
+              <p><a href="{% url 'epanet:report_map' user_project_id=user_project_id %}" role="button" class="btn btn-fat btn-info" data-toggle="modal"><span class="glyphicon glyphicon-globe"></span> Go To Report Map</a></p>
+            {% elif project_report_file_status == "Pending" or project_report_file_status == "Map Reset" %}
+              <p>Processing Report Map: <img src="{% static 'epanet/images/loading.gif' %}" style="margin-left:25px; width:30px;height:30px"></p>
+            {% else %}
+              {% if project_network_file_status == "Pending" or project_network_file_status == "Map Reset" %}
+                <p><i>Report Map Not Loaded</i></p>
+              {% else %}
+                <p><a style="margin-left:10px;" href="{% url 'epanet:edit_project' user_project_id=user_project_id %}" data-toggle="modal" role="button" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Upload Report File</a></p>
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="div_file_report">
+            <h6 class="project-details table-header">Map Preview</h6>
+            {% if layer_preview_url %}
+              <img class="project-details preview-image" src="{{ layer_preview_url }}" style="max-width:100%">
+            {% else %}
+              <p>No preview available at this time.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade{% if active_tab == 'curves' %} in active {% endif %}" id="project-curves">
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form-inline project-details curve-pattern-form" method="get" action="{% url 'epanet:project_details_tab' user_project_id 'curves' %}">
+            {% gizmo select_input curves_select %}
+            <input type="submit" class="btn btn-default" value="Go">
+          </form>
+          {% gizmo plot_view curve_plot %}
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade{% if active_tab == 'patterns' %} in active {% endif %}" id="project-patterns">
+      <div class="row">
+        <div class="col-md-12">
+          <form class="form-inline project-details curve-pattern-form" method="get" action="{% url 'epanet:project_details_tab' user_project_id 'patterns'%}">
+            {% gizmo select_input patterns_select %}
+            <input type="submit" class="btn btn-default" value="Go">
+          </form>
+          {% gizmo plot_view pattern_plot %}
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade{% if active_tab == 'export' %} in active {% endif %}" id="project-export">
+      <div class="row"  style="width:100%">
+        <div class="col-md-6">
+          <h6 class="project-details table-header">Export Report Map</h6>
+          <form id="export-report-map-form" target="_blank" method="get" action="{% url 'epanet:rest_do_export' user_project_id %}">
+            {% gizmo select_input export_map_variable_select %}
+            {% gizmo select_input export_map_time_select %}
+            {% gizmo select_input export_map_format_select %}
+            <input type="hidden" name="export_map_gs_public_endpoint" value="{{ gs_public_endpoint }}">
+            <input type="submit" class="btn btn-default" name="export-report-map-submit" value="Export Report Map">
+          </form>
+        </div>
+        <div class="col-md-6">
+          <h6 class="project-details table-header">Export Network Map</h6>
+          <form id="export-network-map-form" target="_blank" method="get" action="{% url 'epanet:rest_do_export' user_project_id %}">
+            {% gizmo select_input export_map_format_select %}
+            <input type="hidden" name="export_network_map_layers" value="{{ network_layers }}">
+            <input type="hidden" name="export_map_gs_public_endpoint" value="{{ gs_public_endpoint }}">
+            <input type="submit" class="btn btn-default" name="export-network-map-submit" value="Export Network Map">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block app_actions %}
+  {% if is_admin %}
+    {% if project_network_file_status == 'Available' %}
+      {% if not project_report_file_status or project_report_file_status == 'Available' %}
+        <a style="margin-bottom:7px" href="#confirmdeleteModal" role="button" class="btn btn-xs btn-danger" data-toggle="modal"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  <a role="button" class="btn btn-default" href="{% url 'epanet:home' %}" style="float: left;"><span class="glyphicon glyphicon-home"></span> Projects</a>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>var project_owner =  "{{project_owner}}";</script>
+  <link href="{% static 'epanet/css/home.css' %}" rel="stylesheet"/>
+  <script src="{% static 'epanet/js/project_details.js' %}" type="text/javascript"></script>
+{% endblock %}

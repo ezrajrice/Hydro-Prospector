@@ -1,0 +1,79 @@
+#newProject{
+     position:absolute;
+     width:500px;
+     height:50px;
+     z-index:15;
+     top:50%;
+     left:35%;
+     margin:-100px 0 0 -150px;
+     text-align: center;
+}
+
+#filter_by_group {
+    height: 30px;
+}
+
+
+.btn-xl {
+    padding: 15px 22px;
+    font-size: 25px;
+    line-height: 1.33;
+    border-radius: 6px
+}
+
+.modal-dialog {
+    top: 125px;
+    margin-left: 100px;
+}
+
+.modal-backdrop {
+    display: None;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #D9534F;
+    border-color: #D9534F;
+}
+
+.btn-success:hover {
+    color: #fff;
+    background-color: #C55B57;
+    border-color: #C55B57;
+}
+
+.btn-success:focus {
+    color: #fff;
+    background-color: #C55B57;
+    border-color: #C55B57;
+}
+
+#submit-edit-project {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+
+}
+
+#submit-edit-project:hover {
+    color: #fff;
+    background-color: #389038;
+    border-color: #389038;
+
+}
+
+#submit-edit-project:focus {
+    color: #fff;
+    background-color: #389038;
+    border-color: #389038;
+}
+
+#btnNewProject {
+    float: right;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    vertical-align: middle;
+}

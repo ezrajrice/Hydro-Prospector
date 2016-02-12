@@ -26,15 +26,15 @@ class HydroProspector(TethysAppBase):
 
         url_maps = (UrlMap(name='home',
                            url='hydro-prospector',
-                           controller='hydro_prospector.controllers.home'),
+                           controller='hydro_prospector.controllers.home.project_home'),
 
-                    UrlMap(name='view_project',
-                           url='hydro-prospector/1',
-                           controller='hydro_prospector.controllers.view_project'),
-
-                    UrlMap(name='view_map',
-                           url='hydro-prospector/1/view-map',
-                           controller='hydro_prospector.controllers.view_map'),
+                    # UrlMap(name='project_details',
+                    #        url='hydro-prospector/{user_project_id}/project-details',
+                    #        controller='hydro_prospector.controllers.home.project_details'),
+                    #
+                    UrlMap(name='new_project',
+                           url='hydro-prospector/new-project',
+                           controller='hydro_prospector.controllers.project.new.new_project'),
         )
 
         return url_maps
@@ -43,10 +43,10 @@ class HydroProspector(TethysAppBase):
         """
         Add one or more persistent stores
         """
-        stores = (PersistentStore(name='stream_gage_db',
-                                  initializer='init_stores:init_stream_gage_db',
-                                  spatial=True
-                                  ),
-                  )
-
-        return stores
+        return (
+            PersistentStore(
+                name='hydro_prospector',
+                initializer='init_stores:init_hydro_prospector_db',
+                spatial=True
+            ),
+        )

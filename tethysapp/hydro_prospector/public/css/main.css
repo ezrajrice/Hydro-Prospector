@@ -1,0 +1,251 @@
+#app-content-wrapper #app-content #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+#app-content-wrapper #app-content #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+
+#showBackground{
+  opacity:    0.6;
+  background: #000;
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  top:        0;
+  left:       0;
+  position:   fixed;
+
+}
+
+#showImage{
+  background: #000;
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  position:   relative;
+}
+
+#waitLoading{
+
+  width:      100%;
+  height:     100%;
+  z-index:    600;
+  top:        0;
+  left:       0;
+  position:   fixed;
+
+}
+
+#div_project_description{
+    width:      30%;
+}
+
+#app-content-wrapper #app-navigation {
+  border-right: 1px #dddddd solid;
+}
+
+#app-content-wrapper.show-nav #app-content #app-actions {
+  padding-right: 320px;
+}
+
+#resetmaplayersBtn {
+    color: #fff;
+    background-color: #eea236;
+    border-color: #eea236;
+}
+
+#resetmaplayersBtn:hover {
+    color: #fff;
+    background-color: #ec971f;
+    border-color: #ec971f;
+}
+
+#resetmaplayersBtn:focus {
+    color: #fff;
+    background-color: #d58512;
+    border-color: #d58512;
+}
+
+#btnInitApp {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+#btnInitApp:hover {
+    color: #fff;
+    background-color: #d43f3a;
+    border-color: #d43f3a;
+}
+
+textarea.form-control {
+    height: auto;
+    width: 450px;
+}
+
+/* Following section used to override native Tethys CSS */
+
+#app-header .tethys-app-header .app-title-wrapper .app-title {
+    display: block;
+    padding: 13px 0px;
+    padding-left: 76px;
+    font-size: 24px;
+    color: white;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#app-header .tethys-app-header .icon-wrapper img {
+    height: 49px;
+    border-radius: 50%;
+    background: #1b95dc;
+}
+
+#app-header .tethys-app-header .exit-button a {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#app-content-wrapper #app-content #epanet-legend-wrapper {
+    position: absolute;
+    bottom: 80px;
+    background-color: #dddddd;
+    padding: 10px;
+    right: 20px;
+    border: #aaaaaa 1px solid;
+    border-radius: 5px;
+    display: none;
+}
+
+#app-content-wrapper #app-content #app-actions {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+}
+
+#app-header .tethys-app-header .toggle-nav {
+    margin-top: 8px;
+}
+
+.btn-fat {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+#app-content-wrapper #app-content #app-actions .btn {
+    float: right;
+    margin-left: 11px;
+    padding: 4px 8px;
+    margin-top: 5px;
+}
+
+#app-content-wrapper #app-content #app-navigation {
+    position: absolute;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: #efefef;
+    padding: 0 15px;
+    padding-top: 57px;
+}
+
+#app-header .tethys-app-header {
+    position: fixed;
+    /* background: #1b95dc; */
+    height: 57px;
+    background-color: rgba(41, 171, 225, 0.5);
+    width: 100%;
+    z-index: 100;
+    margin-top: -100px;
+}
+
+#app-header .tethys-app-header .icon-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    z-index: 100;
+    margin-left: 30px;
+    padding: 3px;
+}
+
+#app-content-wrapper #app-content {
+    position: relative;
+    width: 100%;
+    padding-top: 57px;
+    padding-bottom: 60px;
+    min-height: 100%;
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+    transform: translateX(0);
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    visibility: hidden;
+    opacity: 0;
+}
+
+#app-header .tethys-app-header .exit-button {
+    float: right;
+    margin-right: 21px;
+    margin-top: 10px;
+}
+
+.project-details.table-header {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  padding-top: 10px;
+}
+
+.project-details.table-edit-btn {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+}
+
+.project-details.preview-image {
+    display: block;
+}
+
+.project-details.curve-pattern-form {
+    margin-top: 20px;
+}

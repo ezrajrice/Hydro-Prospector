@@ -1,0 +1,86 @@
+{% load staticfiles tethys_gizmos %}
+{% if projects and num_of_groups > 0 %}
+    <!--<input id="refresh-required" value="{{ refresh_required }}"hidden>-->
+    <div class="module-content">
+        <div id="projects-table">
+            <table class="table table-hover" id="project_table">
+                <thead>
+                    <!--{% if user.is_staff %}-->
+                    <th>Hydro Prospector ID</th>
+                    <th>Database ID</th>
+                    <!--{% endif %}-->
+                    <th>Name</th>
+                    <!--{% if show_group_field %}-->
+                    <th>Group</th>
+                    <!--{% endif %}-->
+                    <th>Description</th>
+                    <th>Date Created</th>
+                    <th></th>
+                </thead>
+                {% for project in projects %}
+                    <!--{% if project.input_file_status != 'Deleting'%}-->
+                    <!--{% if project.input_file_status != 'FAILED'%}-->
+                    <tr onclick="window.document.location='{% url 'hydro_prospector:project_details' user_project_id=project.id %}';" style="cursor: pointer;">
+                        {% if user.is_staff %}
+                        <td>{{ project.project_id }}</td>
+                        <td>{{ project.database_id }}</td>
+                        {% endif %}
+                        <td class="name" data-id="{{ project.name }}"><a href="{% url 'epanet:project_details' user_project_id=project.id %}">{{project.name}}</a></td>
+                        {% if show_group_field %}
+                        <td>{{ project.cleaned_project_owner }}</td>
+                        {% endif %}
+                        {% if project.description == '' %}
+                        <td class="name" data-id="{{ project.description }}"><i><font color="#A8A8A8">No Description</font></i></td>
+                        {% else %}
+                        <td class="name" data-id="{{ project.description }}">{{project.description}}</td>
+                        {% endif %}
+                        <td class="date_created" data-id="{{ project.date_created }}">{{project.date_created}}</td>
+                            <!-- Button trigger modal -->
+                            <div class="btn-toolbar pull-right">
+                            <td style="padding-top: 13px">
+                                {% if project.input_file_status == 'Pending' or project.input_file_status == 'Map Reset' or project.report_file_status == 'Pending' or project.report_file_status == 'Map Reset' %}
+                                <img src="{% static 'epanet/images/loading.gif' %}" style="margin-left:27px; width:30px;height:30px">
+                                {% elif project.report_file_status != 'Available' %}
+                                <a style="margin-bottom:7px;margin-left:10px;" href="{% url 'epanet:network_map' user_project_id=project.id %}" role="button" class="btn btn-s btn-default" data-toggle="modal"><span class="glyphicon glyphicon-globe"></span> Map</a>
+                                {% else %}
+                                <a style="margin-bottom:7px;margin-left:10px;" href="{% url 'epanet:report_map' user_project_id=project.id %}" role="button" class="btn btn-s btn-info" data-toggle="modal"><span class="glyphicon glyphicon-globe"></span> Map</a>
+                                {% endif %}
+                            </td>
+                            </div>
+                    </tr>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+{% else %}
+    <!--{% if is_admin and num_of_groups > 0 %}-->
+    <div id="newProject">
+        <!--<input id="refresh-required" value="{{ refresh_required }}"hidden>-->
+        <div><h4 text-align="center">No Projects Found For {{filtered_owner}}</h4></div>
+        <br>
+        <div style="padding-left: 100px; padding-right: 100px;"><a href="{% url 'hydro_prospector:new_project'%}"
+                                                                   type="button" class="btn btn-primary btn-xl btn-block"
+                                                                   data-toggle="modal" >Upload New Project</a></div>
+    </div>
+    {% elif num_of_groups == 0 %}
+    <div id="newProject">
+        <!--<input id="refresh-required" value="{{ refresh_required }}"hidden>-->
+        <br><br><br>
+        <h4 text-align="center">No Groups Available</h4>
+    </div>
+    {% else %}
+    <div id="newProject">
+        <!--<input id="refresh-required" value="{{ refresh_required }}"hidden>-->
+        <br><br><br>
+        <h4 text-align="center">No Projects Available For {{filtered_owner}}</h4>
+    </div>
+    {% endif %}
+
+{% endif %}
+
+
+

@@ -1,20 +1,22 @@
 {% extends "hydro_prospector/base.html" %}
-{% load tethys_gizmos %}
+{% load staticfiles tethys_gizmos %}
 
 {% block app_content %}
-    <h1>Projects Table</h1>
+    <a id="btnNewProject" class="btn btn-primary btn-sm" href="{% url 'hydro_prospector:new_project'%}">New Project</a>
 
-    <table class="table table-hover">
-        {% gizmo table_view home_project_table %}
-    </table>
+    <h1>Projects</h1>
+    <div id="forProjectTable">
+        <div class="center-parent" id="waitLoading"><img src="{% static 'hydro_prospector/images/loading.gif' %}"
+                                                         style="margin-left: -250px; width:400px;height:50px"></div>
+    </div>
 
 {% endblock %}
 
 {% block app_navigation_items %}
-    <p>Welcome to {{ tethys_app.name }}!</p>
-    <p>Please select a project in the table or create a new one.</p>
-    <a href='' class="btn btn-default">Create New Project</a>
+
 {% endblock %}
 
 {% block app_actions %}
+    {{ block.super }}
+    <link href="{% static 'hydro_prospector/css/home.css' %}" rel="stylesheet"/>
 {% endblock %}
