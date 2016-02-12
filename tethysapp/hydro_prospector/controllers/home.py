@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from tethys_sdk.gizmos import SelectInput
-# from tethysapp.hydro_prospector.lib.helpers import is_app_admin
+from tethysapp.hydro_prospector.lib.helpers import is_app_admin
 from tethysapp.hydro_prospector.model import UserProject, SessionMaker
 
 
@@ -22,9 +22,9 @@ def project_home(request):
     for group in groups:
         group_name = group.name
         group_buffer.append(group_name)
-        # remove_hydro_prospector_group_name = group_name.split('.')[1]
-        # cleaned_group_name = remove_hydro_prospector_group_name.replace("_", " ").replace("-", " ")
-        # select_group_buffer.append((str(cleaned_group_name.title()), str(group_name)))
+        remove_hydro_prospector_group_name = group_name.split('.')[0]
+        cleaned_group_name = remove_hydro_prospector_group_name.replace("_", " ").replace("-", " ")
+        select_group_buffer.append((str(cleaned_group_name.title()), str(group_name)))
 
     # Assigned for controlling display on the template - if zero, it will not let the user add projects
     number_of_groups = len(group_buffer)
@@ -37,7 +37,7 @@ def project_home(request):
                                attributes="id=select_group")
 
     context = {'select_group': select_group,
-               # 'is_admin': is_app_admin(user),
+               'is_admin': is_app_admin(user),
                'number_of_groups': number_of_groups}
 
     return render(request, 'hydro_prospector/home.html', context)
@@ -108,7 +108,7 @@ def project_table(request, user_project_owners):
 
         context = {'refresh_required': refresh_required,
                    'show_group_field': show_group_field,
-                   # 'is_admin': is_app_admin(user),
+                   'is_admin': is_app_admin(user),
                    'num_of_groups': num_of_groups,
                    'filtered_owner': filtered_owner,
                    'projects': projects}
@@ -118,7 +118,7 @@ def project_table(request, user_project_owners):
     else:
         # Only this context is needed if there are no groups
         context = {
-            # 'is_admin': is_app_admin(user),
+            'is_admin': is_app_admin(user),
             'num_of_groups': num_of_groups,
             'projects': []}
 

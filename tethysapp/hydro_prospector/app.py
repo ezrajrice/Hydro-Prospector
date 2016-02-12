@@ -28,13 +28,17 @@ class HydroProspector(TethysAppBase):
                            url='hydro-prospector',
                            controller='hydro_prospector.controllers.home.project_home'),
 
-                    # UrlMap(name='project_details',
-                    #        url='hydro-prospector/{user_project_id}/project-details',
-                    #        controller='hydro_prospector.controllers.home.project_details'),
-                    #
+                    UrlMap(name='project_table',
+                           url='hydro-prospector/{user_project_owners}/project-table',
+                           controller='hydro_prospector.controllers.home.project_table'),
+
                     UrlMap(name='new_project',
                            url='hydro-prospector/new-project',
                            controller='hydro_prospector.controllers.project.new.new_project'),
+
+                    UrlMap(name='rest_initialize_app_settings',
+                           url='hydro-prospector/rest/project/initialize-app-settings',
+                           controller='hydro_prospector.controllers.rest.initialize_app_settings'),
         )
 
         return url_maps

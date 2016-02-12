@@ -1,6 +1,24 @@
 {% extends "hydro_prospector/base.html" %}
 {% load staticfiles tethys_gizmos %}
 
+{% block app_navigation_items %}
+{% if number_of_groups > 0 %}
+  <h5>Welcome to {{ tethys_app.name }}</h5>
+  <p>Use this app to manage and view Hydro-Electric projects.</p>
+  <p></p>
+  <br>
+  <div class="nav-form">
+  {% gizmo select_input select_group %}
+{% if is_admin %}
+    <br>
+  <p>First time use of the app requires that an Admin Initialize App Settings for the GeoServer default layers and styles. This
+  only needs to be performed once before any projects are uploaded.</p>
+  <a id="btnInitApp" class="btn btn-default btn" href="#">Initialize App Settings</a>
+  {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
+
 {% block app_content %}
     <a id="btnNewProject" class="btn btn-primary btn-sm" href="{% url 'hydro_prospector:new_project'%}">New Project</a>
 
@@ -9,10 +27,6 @@
         <div class="center-parent" id="waitLoading"><img src="{% static 'hydro_prospector/images/loading.gif' %}"
                                                          style="margin-left: -250px; width:400px;height:50px"></div>
     </div>
-
-{% endblock %}
-
-{% block app_navigation_items %}
 
 {% endblock %}
 
