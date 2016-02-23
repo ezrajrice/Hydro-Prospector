@@ -4,9 +4,10 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, Boolean, DateTime, String, TypeDecorator, CHAR
 from sqlalchemy.orm import sessionmaker
-from tethysapp.hydro_prospector.app import HydroProspector as app
 
-db_engine = app.get_persistent_store_engine('hydro_prospector')
+from tethysapp.hydro_prospector.app import HydroProspector
+
+db_engine = HydroProspector.get_persistent_store_engine('hydro_prospector_db')
 SessionMaker = sessionmaker(bind=db_engine)
 UserProjectsBase = declarative_base()
 

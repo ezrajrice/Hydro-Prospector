@@ -98,7 +98,7 @@ def project_table(request, user_project_owners):
                 refresh_number.append(project.name)
 
             project_owner = project.owner
-            remove_epanet_group_name = project_owner.split('.')[1]
+            remove_epanet_group_name = project_owner.split('.')[0]
             cleaned_project_name = remove_epanet_group_name.replace("_", " ").replace("-", " ")
             cleaned_project_owner = str(cleaned_project_name.title())
             project.cleaned_project_owner = cleaned_project_owner

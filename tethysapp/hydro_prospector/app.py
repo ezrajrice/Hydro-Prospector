@@ -49,7 +49,7 @@ class HydroProspector(TethysAppBase):
         """
         return (
             PersistentStore(
-                name='hydro_prospector',
+                name='hydro_prospector_db',
                 initializer='init_stores:init_hydro_prospector_db',
                 spatial=True
             ),

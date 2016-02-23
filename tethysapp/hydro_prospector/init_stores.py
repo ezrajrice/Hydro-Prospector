@@ -1,4 +1,4 @@
-from model import db_engine, UserProjectsBase
+from model import db_engine, UserProjectsBase, SessionMaker, UserProject
 
 
 def init_hydro_prospector_db(first_time):
@@ -9,4 +9,7 @@ def init_hydro_prospector_db(first_time):
     UserProjectsBase.metadata.create_all(db_engine)
 
     if first_time:
-        pass
+        # Make session
+        session = SessionMaker()
+
+        session.commit()
