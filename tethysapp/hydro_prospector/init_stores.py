@@ -13,3 +13,4 @@ def init_hydro_prospector_db(first_time):
         session = SessionMaker()
 
         session.commit()
+        session.close()

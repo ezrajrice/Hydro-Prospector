@@ -18,8 +18,6 @@
                     <th></th>
                 </thead>
                 {% for project in projects %}
-                    <!--{% if project.input_file_status != 'Deleting'%}-->
-                    <!--{% if project.input_file_status != 'FAILED'%}-->
                     <tr onclick="window.document.location='{% url hydro_prospector:project_details' user_project_id=project.id %}';" style="cursor: pointer;">
                         {% if user.is_staff %}
                         <td>{{ project.project_id }}</td>
@@ -36,8 +34,6 @@
                         {% endif %}
                         <td> class="date_created" data-id="{{ project.date_created }}">{{project.date_created}}</td>
                     </tr>
-                {% endif %}
-                {% endif %}
                 {% endfor %}
             </table>
         </div>
