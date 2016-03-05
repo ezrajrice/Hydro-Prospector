@@ -68,18 +68,6 @@
     border-color: #d58512;
 }
 
-#btnInitApp {
-    color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a;
-}
-
-#btnInitApp:hover {
-    color: #fff;
-    background-color: #d43f3a;
-    border-color: #d43f3a;
-}
-
 textarea.form-control {
     height: auto;
     width: 450px;
@@ -226,6 +214,19 @@ textarea.form-control {
     float: right;
     margin-right: 21px;
     margin-top: 10px;
+}
+
+.nav-btn {
+    border: solid;
+    border-width: 1px;
+    border-color: #dddddd;
+    border-radius: 3px;
+    border-left: none;
+    border-right: none;
+}
+
+.nav-btn-wrapper {
+    margin-top: -1px!important;
 }
 
 .project-details.table-header {

@@ -103,9 +103,6 @@ def project_table(request, user_project_owners):
             cleaned_project_owner = str(cleaned_project_name.title())
             project.cleaned_project_owner = cleaned_project_owner
 
-        if len(refresh_number) > 0:
-            refresh_required = True
-
         context = {'refresh_required': refresh_required,
                    'show_group_field': show_group_field,
                    'is_admin': is_app_admin(user),

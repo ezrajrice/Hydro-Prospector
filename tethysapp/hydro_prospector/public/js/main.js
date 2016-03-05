@@ -2,33 +2,6 @@
 var timeoutRefresh = null;
 var timeoutInitial = null;
 
-//Load Project Table
-function refresh() {
-   // Pulls the active value of the Select Group gizmo and the hidden value of refresh_required
-   var select_group = $("#select_group").val();
-   var refresh_required = $('#refresh-required').val();
-   console.log(refresh_required);
-
-   if (refresh_required) {
-      if (timeoutRefresh) {
-         clearTimeout(timeoutRefresh);
-         timeoutRefresh = null;
-        }
-      $( "#forProjectTable" ).load( "/apps/hydro-prospector/"+select_group+"/project-table/", function() {
-        timeoutInitial = setTimeout(function () {refresh(); }, 50000);
-      });
-      }
-}
-
-// Load the table on running home.html - give it a timeout and have it run refresh to see if there are any Pending statuses
-$( "#btnInitApp" ).click(function() {
-    var button_bg = document.getElementById("btnInitApp");
-    $('#btnInitApp').attr('disabled', true);
-    button_bg.style.background="#953232";
-    $.ajax({url: "/apps/hydro-prospector/rest/project/initialize-app-settings/", success: function(result){
-    $('#btnInitApp').attr('disabled', false)} });
-});
-
 // Load the table on running home.html - give it a timeout and have it run refresh to see if there are any Pending statuses
 $( "#forProjectTable" ).load( "/apps/hydro-prospector/all_groups/project-table/", function() {
       timeoutInitial = setTimeout(function () {refresh(); }, 10000);
