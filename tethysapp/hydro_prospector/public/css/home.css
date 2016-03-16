@@ -13,7 +13,7 @@
     height: 30px;
 }
 
-
+/* Button Styles */
 .btn-xl {
     padding: 15px 22px;
     font-size: 25px;
@@ -74,6 +74,13 @@
     font-size: 16px;
 }
 
-.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+/* Table Styles */
+#projects-table {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th,
+.table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
     vertical-align: middle;
 }
