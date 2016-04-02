@@ -1,7 +1,6 @@
-{% extends "epanet/base.html" %}
+{% extends "hydro_prospector/base.html" %}
 
 {% block app_navigation_items %}
-    <li class="nav-btn-wrapper"><a href="javascript:void(0)" class="nav-btn">First Link</a></li>
 {% endblock %}
 
 {% load static tethys_gizmos %}
@@ -17,9 +16,9 @@
             <p class="help-block">Please input a valid name for your project</p>
         </div>
     </div>
-    <div class="form-group" id="div_group_input" style="width: 300px">
-        {% gizmo select_input select_group %}
-    </div>
+    <!--<div class="form-group" id="div_group_input" style="width: 300px">-->
+        <!--{% gizmo select_input select_group %}-->
+    <!--</div>-->
     <div class="form-group" id="div_project_description">
           <label for="project_description">Description (Optional)</label>
           <textarea form="uploadForm" class="form-control" rows=5 id="project_description" name="project_description"></textarea>
@@ -37,5 +36,4 @@
 
 {% block scripts %}
   {{ block.super }}
-  <!--<script src="{% static 'epanet/js/new_project.js' %}" type="text/javascript"></script>-->
 {% endblock %}

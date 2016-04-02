@@ -58,7 +58,6 @@ class UserProject(UserProjectsBase):
     database_id = Column(String)
     name = Column(String)
     description = Column(String)
-    srid = Column(String)  # EPSG SRID
     watershed_status = Column(String)
     flow_duration_curve_status = Column(String)
     streamflow_status = Column(String)
