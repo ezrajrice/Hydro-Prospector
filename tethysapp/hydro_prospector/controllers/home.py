@@ -38,7 +38,8 @@ def project_home(request):
 
     context = {'select_group': select_group,
                'is_admin': is_app_admin(user),
-               'number_of_groups': number_of_groups}
+               'number_of_groups': number_of_groups,
+               'projects': []}
 
     return render(request, 'hydro_prospector/home.html', context)
 

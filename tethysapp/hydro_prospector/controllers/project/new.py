@@ -11,7 +11,7 @@ def new_project(request):
     """
 
     user = request.user
-    groups = user.groups.all()
+    # groups = user.groups.all()
     # select_group_buffer = []
 
     # # Make a list of associated groups to the user for the select_group options

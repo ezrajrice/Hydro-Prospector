@@ -1,6 +1,8 @@
 {% extends "hydro_prospector/base.html" %}
 
 {% block app_navigation_items %}
+    <li class="title">Navigation</li>
+    <li class="nav-btn-wrapper"><a href="{% url 'hydro_prospector:home'%}" class="nav-btn">Home</a></li>
 {% endblock %}
 
 {% load static tethys_gizmos %}
