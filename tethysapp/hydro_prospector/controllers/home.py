@@ -36,88 +36,57 @@ def project_home(request):
                                options=select_group_buffer,
                                attributes="id=select_group")
 
+    session = SessionMaker()
+
+    # Query database for projects that belong to the groups that the user is in.
+    projects = session.query(UserProject). \
+        order_by(UserProject.date_created.desc()). \
+        all()
+
+    session.close()
+
     context = {'select_group': select_group,
                'is_admin': is_app_admin(user),
                'number_of_groups': number_of_groups,
-               'projects': []}
+               'projects': projects}
 
     return render(request, 'hydro_prospector/home.html', context)
 
 
-@login_required()
-def project_table(request, user_project_owners):
-    """
-    Controller for the table on the app home page. It shows all the current projects and
-    is wrapped in the JQuery load function to ease the use of JavaScript
-    """
-    refresh_required = False
-    refresh_number = []
-    user = request.user
-    groups = user.groups.all()
-    group_buffer = []
-    show_group_field = None
-
-    # filtered_owner is used as a display on the template
-    if user_project_owners == 'all_groups':
-        filtered_owner = 'Any Group'
-    else:
-        filtered_owner = user_project_owners
-        filtered_owner = filtered_owner.split('.')[1].replace("_", " ").replace("-", " ")
-        filtered_owner = str(filtered_owner.title())
-
-    # Make a list of associated groups to the user for the select_group options
-    for group in groups:
-        group_name = group.name
-        group_buffer.append(str(group_name))
-
-    num_of_groups = len(group_buffer)
-
-    # If there are no groups, do not the following
-    if num_of_groups > 0:
-        session = SessionMaker()
-
-        if user_project_owners == 'all_groups':
-            show_group_field = 'yes'
-            user_project_owners = group_buffer
-
-            # Query database for projects that belong to the groups that the user is in.
-            projects = session.query(UserProject).\
-                filter(UserProject.owner.in_(user_project_owners)).\
-                order_by(UserProject.date_created.desc()).\
-                all()
-        else:
-            # Query database for projects that belong to the groups that the user is in.
-            projects = session.query(UserProject).\
-                filter(UserProject.owner == user_project_owners).\
-                order_by(UserProject.date_created.desc()).\
-                all()
-
-        # Create array of pending projects
-        for project in projects:
-            # Check to see if there are any that need to be refreshed
-            if project.input_file_status == 'Pending' or project.report_file_status == 'Pending':
-                refresh_number.append(project.name)
-
-            project_owner = project.owner
-            remove_epanet_group_name = project_owner.split('.')[0]
-            cleaned_project_name = remove_epanet_group_name.replace("_", " ").replace("-", " ")
-            cleaned_project_owner = str(cleaned_project_name.title())
-            project.cleaned_project_owner = cleaned_project_owner
-
-        context = {'refresh_required': refresh_required,
-                   'show_group_field': show_group_field,
-                   'is_admin': is_app_admin(user),
-                   'num_of_groups': num_of_groups,
-                   'filtered_owner': filtered_owner,
-                   'projects': projects}
-
-        session.close()
-
-    else:
-        # Only this context is needed if there are no groups
-        context = {
-            'is_admin': is_app_admin(user),
-            'num_of_groups': num_of_groups,
-            'projects': []}
-
-    return render(request, 'hydro_prospector/project_table.html', context)
+# @login_required()
+# def project_table(request, user_project_owners):
+#     """
+#     Controller for the table on the app home page. It shows all the current projects and
+#     is wrapped in the JQuery load function to ease the use of JavaScript
+#     """
+#     user = request.user
+#
+#     # filtered_owner is used as a display on the template
+#     if user_project_owners == 'all_groups':
+#         filtered_owner = 'Any Group'
+#     else:
+#         filtered_owner = user_project_owners
+#         filtered_owner = filtered_owner.split('.')[1].replace("_", " ").replace("-", " ")
+#         filtered_owner = str(filtered_owner.title())
+#
+#     session = SessionMaker()
+#
+#     # Query database for projects that belong to the groups that the user is in.
+#     # projects = session.query(UserProject).\
+#     #     filter(UserProject.owner.in_(user_project_owners)).\
+#     #     order_by(UserProject.date_created.desc()).\
+#     #     all()
+#
+#     # Query database for projects that belong to the groups that the user is in.
+#     projects = session.query(UserProject).\
+#         filter(UserProject.owner == user_project_owners).\
+#         order_by(UserProject.date_created.desc()).\
+#         all()
+#
+#     context = {'is_admin': is_app_admin(user),
+#                'filtered_owner': filtered_owner,
+#                'projects': projects}
+#
+#     session.close()
+#
+#     return render(request, 'hydro_prospector/project_table.html', context)

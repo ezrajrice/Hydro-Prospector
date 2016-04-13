@@ -1,5 +1,6 @@
 from tethys_sdk.base import TethysAppBase, url_map_maker
 from tethys_sdk.stores import PersistentStore
+from tethys_sdk.handoff import HandoffHandler
 
 
 class HydroProspector(TethysAppBase):
@@ -30,6 +31,15 @@ class HydroProspector(TethysAppBase):
                     UrlMap(name='new_project',
                            url='hydro-prospector/new-project',
                            controller='hydro_prospector.controllers.project.new.new_project'),
+                    UrlMap(name='upload_project',
+                           url='hydro-prospector/upload-project',
+                           controller='hydro_prospector.controllers.project.new.upload_project'),
+                    UrlMap(name='project_details',
+                           url='hydro-prospector/{db_id}/project-details',
+                           controller='hydro_prospector.controllers.rest.project_details'),
+                    UrlMap(name='parent_handoff_manager',
+                           url='hydro-prospector/child-app',
+                           controller='hydro_prospector.controllers.rest.parent_handler_to_childapp'),
                     )
 
         return url_maps
@@ -45,3 +55,14 @@ class HydroProspector(TethysAppBase):
                 spatial=True
             ),
         )
+
+    def handoff_handlers(self):
+        """
+        Add handoff handlers
+        """
+        handoff_handlers = (HandoffHandler(name='parent-engine-conn',
+                                           handler='hydro_prospector.handoff.get_engine_conn',
+                                           internal=True),
+                            )
+
+        return handoff_handlers

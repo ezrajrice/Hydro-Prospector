@@ -52,10 +52,9 @@ class UserProject(UserProjectsBase):
     """
     __tablename__ = 'hydro_prospector_user_projects'
 
-    id = Column(GUID, primary_key=True, default=uuid.uuid4)
+    id = Column(Integer, primary_key=True)
     owner = Column(String)  # Username
-    project_id = Column(Integer)
-    database_id = Column(String)
+    project_id = Column(GUID)
     name = Column(String)
     description = Column(String)
     watershed_status = Column(String)

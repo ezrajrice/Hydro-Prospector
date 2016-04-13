@@ -15,23 +15,22 @@
         <div class="table-responsive" id="projects-table">
             <table class="table table-hover" id="project_table">
                 <thead>
-                    <th>Hydro Prospector ID</th>
-                    <th>Database ID</th>
+                    <th>Project ID</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Date Created</th>
-                    <th></th>
                 </thead>
                 {% for project in projects %}
-                    <td>{{ project.project_id }}</td>
-                    <td>{{ project.database_id }}</td>
-                    <td class="name" data-id="{{ project.name }}"><a href="{% url 'hydro_prospector:project_details' user_project_id=project.id %}">{{project.name}}</a></td>
-                    {% if project.description == '' %}
-                    <td class="name" data-id="{{ project.description }}"><i><font color="#A8A8A8">No Description</font></i></td>
-                    {% else %}
-                    <td class="name" data-id="{{ project.description }}">{{ project.description }}</td>
-                    {% endif %}
-                    <td> class="date_created" data-id="{{ project.date_created }}">{{ project.date_created }}</td>
+                    <tr onclick="window.document.location='{% url 'hydro_prospector:project_details' db_id=project.id %}';" style="cursor: pointer;">
+                        <td>{{ project.project_id }}</td>
+                        <td class="name" data-id="{{ project.name }}"><a href="{% url 'hydro_prospector:project_details' db_id=project.id %}">{{project.name}}</a></td>
+                        {% if project.description == '' %}
+                        <td class="name" data-id="{{ project.description }}"><i><font color="#A8A8A8">No Description</font></i></td>
+                        {% else %}
+                        <td class="name" data-id="{{ project.description }}">{{ project.description }}</td>
+                        {% endif %}
+                        <td class="date_created" data-id="{{ project.date_created }}">{{ project.date_created }}</td>
+                    </tr>
                 {% endfor %}
             </table>
         </div>
